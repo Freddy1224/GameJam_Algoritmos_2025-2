@@ -1,0 +1,3 @@
+F:\Repositorio vs2022\POLIDASH Runner\POLIDASH Runner\x64\Debug\POLIDASH Runner.vcxproj.AssemblyReference.cache
+F:\Repositorio vs2022\POLIDASH Runner\POLIDASH Runner\x64\Debug\POLIDASHRunner.MyForm.resources
+F:\Repositorio vs2022\POLIDASH Runner\POLIDASH Runner\x64\Debug\POLIDASH Runner.vcxproj.GenerateResource.cache
