@@ -1,6 +1,7 @@
 #pragma once
 
 namespace POLIDASHRunner {
+	//prueba commit eqqq
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -34,6 +35,8 @@ namespace POLIDASHRunner {
 				delete components;
 			}
 		}
+
+	protected:
 
 	protected:
 
