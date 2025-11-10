@@ -11,9 +11,10 @@ public:
 		this->dx = -15;
 	}
 
-	// El método mover que ya está funcionando
-	void mover() override {
+	void mover(OrientacionTramo orientacion) override {
+		// El movimiento del power es simple, no necesita la orientación
 		x += dx;
+		y += dy; // Añadimos 'y' para que funcione en tramos verticales
 	}
 
 	// LA FUNCIÓN CORREGIDA Y COMPLETA PARA DIBUJAR

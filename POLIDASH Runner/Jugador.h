@@ -1,9 +1,28 @@
 #pragma once
 #include "Figura.h"
+
 using namespace System;
 
 class Jugador : public Figura {
+private:
+    float progreso;
 public:
+    void iniciarTramo2(int anchoPista, int altoVentana) {
+        // Coloca al jugador en la esquina inferior derecha
+        x = anchoPista - ancho;
+        y = altoVentana - alto;
+    }
+
+    void iniciarTramo3(int anchoPista) {
+        // Coloca al jugador en la esquina superior derecha
+        x = anchoPista - ancho;
+        y = 0;
+    }
+    Jugador(int x, int y, EColor color_inicial) : Figura(x, y, 3, 0, color_inicial) {
+        progreso = 0.0f; // El jugador empieza con 0 progreso
+        // Ahora el color se pasa desde fuera
+    }
+
     void sumarAlCentral(int valor) {
         num_central += valor;
     }
@@ -15,29 +34,35 @@ public:
             num_central = 0; // Regla del PDF
         }
     }
-    Jugador(int x, int y, EColor color_inicial) : Figura(x, y, 3, 0, color_inicial) {
-        // Ahora el color se pasa desde fuera
-    }
 
-    // Este método es nuevo y se parece a la lógica de tu proyecto de Sprites
-   
+    void mover(OrientacionTramo orientacion) override {
+        // 1. Aplicamos el movimiento simple (la velocidad ya fue calculada en MyForm)
+        x += dx;
+        y += dy;
 
-    // El método mover ahora es muy simple, como en tus ejemplos
-    void mover() override {
-        // Guarda la posición futura
-        int futuro_x = x + dx;
-
-        // Define los límites de la pista (asumimos que el minimapa tiene 200px de ancho)
-        int limite_derecho_pista = 752 - 200 - ancho; // 752 es el ancho de tu ventana
-
-        // Mueve solo si no se pasa de los límites
-        if (futuro_x > 0 && futuro_x < limite_derecho_pista) {
-            x = futuro_x;
+        // 2. Calculamos el progreso basado en la orientación del tramo
+        switch (orientacion) {
+        case OrientacionTramo::Horizontal_Der:
+            progreso += dx; // Avanzar es moverse a la derecha (dx positivo)
+            break;
+        case OrientacionTramo::Vertical_Arr:
+            progreso -= dy; // Avanzar es moverse hacia arriba (dy negativo)
+            break;
+        case OrientacionTramo::Horizontal_Izq:
+            progreso -= dx; // Avanzar es moverse a la izquierda (dx negativo)
+            break;
         }
 
-        // El movimiento en Y puede tener límites también si quieres
-        y += dy;
+        // 3. Aplicamos límites para que el jugador no se salga de la pista
+        int limite_derecho_pista = 752 - 200 - ancho; // Ancho Ventana - Ancho Minimapa - Ancho Jugador
+        int limite_inferior_pista = 563 - alto; // Alto Ventana - Alto Jugador
+
+        if (x < 0) x = 0;
+        if (x > limite_derecho_pista) x = limite_derecho_pista;
+        if (y < 0) y = 0;
+        if (y > limite_inferior_pista) y = limite_inferior_pista;
     }
+    float getProgreso() { return progreso; }
 
     void dibujar(Graphics^ canvas) override {
         // (Esta función no cambia, deja el código que ya tenías y que corregiste con Copilot)
