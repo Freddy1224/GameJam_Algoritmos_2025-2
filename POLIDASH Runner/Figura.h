@@ -2,18 +2,17 @@
 
 using namespace System::Drawing;
 
-// Usamos un enum para manejar los colores de forma más limpia
+// colores
 enum class EColor { Rojo, Amarillo, Azul };
 
-// Forward declaration to fix C2061 error
+// orientaciones de los tramos
 enum class OrientacionTramo {
 	Horizontal_Der,
 	Vertical_Arr,
 	Horizontal_Izq
 };
 
-
-// Clase Padre Abstracta: define las propiedades y métodos que TODOS los objetos tendrán
+// clase padre 
 class Figura {
 protected:
 	int x, y;
@@ -24,43 +23,34 @@ protected:
 	EColor color;
 
 public:
+	
 	virtual void mover(OrientacionTramo orientacion) = 0;
 	virtual void dibujar(Graphics^ canvas) = 0;
 
-	int getDx() { return dx; }
-	int getDy() { return dy; }
-
-	int getAncho() { return ancho; }// El "= 0" significa que las clases hijas ESTÁN OBLIGADAS a implementar estos métodos
-	int getNumCentral() { return num_central; }
-	void setNumCentral(int nuevo_valor) { num_central = nuevo_valor; }
-
-
-	// Constructor para inicializar propiedades comunes
+	
 	Figura(int x, int y, int num_lados, int num_central, EColor color) {
 		this->x = x;
 		this->y = y;
 		this->num_lados = num_lados;
 		this->num_central = num_central;
 		this->color = color;
-		// Valores por defecto
 		this->dx = 0;
 		this->dy = 0;
-		this->ancho = 50; // Tamaño por defecto, podemos ajustarlo
+		this->ancho = 50;
 		this->alto = 50;
 	}
 
-	// Método para obtener el rectángulo de colisión del objeto
-	Rectangle getRectangle() {
-		return Rectangle(x, y, ancho, alto);
-	}
-
-	// Getters para acceder a las propiedades desde fuera
+	
+	Rectangle getRectangle() { return Rectangle(x, y, ancho, alto); }
 	EColor getColor() { return color; }
 	int getNumLados() { return num_lados; }
+	int getNumCentral() { return num_central; }
+	void setNumCentral(int nuevo_valor) { num_central = nuevo_valor; }
 	int getX() { return x; }
 	int getY() { return y; }
-
-	// Método para establecer la velocidad del objeto
+	int getAncho() { return ancho; }
+	int getDx() { return dx; }
+	int getDy() { return dy; }
 	void setVelocidad(int dx, int dy) {
 		this->dx = dx;
 		this->dy = dy;
