@@ -11,7 +11,7 @@ public:
         progreso = 0.0f;
     }
 
-    // Métodos para actualizar estado
+   
     void sumarAlCentral(int valor) {
         num_central += valor;
     }
@@ -28,7 +28,7 @@ public:
         if (num_lados > 3) num_lados--;
     }
 
-    // Métodos para transiciones
+    
     void iniciarTramo2(int anchoPista, int altoVentana) {
         x = anchoPista - ancho;
         y = altoVentana - alto;
